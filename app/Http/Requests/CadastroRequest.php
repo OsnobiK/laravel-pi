@@ -25,7 +25,7 @@ class CadastroRequest extends FormRequest // <<-- MUDANÇA AQUI
             'name' => ['required', 'string', 'max:255'],
             'cpf' => ['required', 'string', 'min:11', 'max:14', 'unique:usuarios'], // <<-- MUDANÇA: adicionado CPF, unique:usuarios
             'telefone' => ['required', 'string', 'min:14', 'max:15'], // <<-- MUDANÇA: adicionado Telefone
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'], // <<-- MUDANÇA: unique:usuarios
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios', 'regex:/^[A-Za-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'], // <<-- MUDANÇA: unique:usuarios
             'senha' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'], // <<-- MUDANÇA: nome do campo 'senha'
             'confirmar-senha' => ['required', 'string', 'same:senha'], // <<-- MUDANÇA: 'same:senha' para validar confirmação
             'termos' => ['required', 'accepted'], // <<-- MUDANÇA: validação dos termos

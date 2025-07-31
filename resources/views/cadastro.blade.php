@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    {{-- Inclua seus scripts JavaScript aqui, após o conteúdo HTML --}}
+    
     <script src="{{ asset('js/masks.js') }}"></script>
 </body>
 </html>

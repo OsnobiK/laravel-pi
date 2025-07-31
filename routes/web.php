@@ -24,6 +24,22 @@ Route::get('/home', function () {
     return redirect()->route('home'); // Redireciona para a rota nomeada '/'
 });
 
+Route::get('/area-user', function () {
+    return redirect()->route('area-user'); // Redireciona para a rota nomeada '/'
+});
+
+Route::get('/area', function () {
+    return view('area-user'); // <<-- Sugiro que a home seja a '/'
+})->name('area-user'); // Nomeie a rota home para facilitar o acesso em links
+
+Route::get('/sobre', function () {
+    return redirect()->route('sobre'); // Redireciona para a rota nomeada '/'
+});
+
+Route::get('/sobre', function () {
+    return view('sobre'); // <<-- Sugiro que a home seja a '/'
+})->name('sobre'); // Nomeie a rota home para facilitar o acesso em links, 
+
 // Se você não for usar o sistema de autenticação padrão do Laravel (Breeze/Jetstream)
 // e vai gerenciar usuários apenas pela tabela 'usuarios', você pode *remover* ou comentar
 // as rotas de autenticação padrão do Breeze/Jetstream, pois elas ainda apontariam para o Model User
