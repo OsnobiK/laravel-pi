@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CadastroController; // Importe seu controller
+use App\Http\Controllers\Auth\LoginController;
 
 // Rota para exibir o formulário de cadastro
 Route::get('/cadastro', [CadastroController::class, 'create'])->name('cadastro.create');
@@ -40,6 +41,20 @@ Route::get('/sobre', function () {
     return view('sobre'); // <<-- Sugiro que a home seja a '/'
 })->name('sobre'); // Nomeie a rota home para facilitar o acesso em links, 
 
+
+
+Route::get('/login', function () {
+    return view('login'); // <<-- Sugiro que a home seja a '/'
+})->name('login');
+
+
+Route::get('/pefil', function () {
+    return view('perfil'); // <<-- Sugiro que a home seja a '/'
+})->name('perfil');// <-- Adiciona o fechamento do grupo middleware
+
+Route::get('/termos', function () {
+    return view('termos'); // <<-- Sugiro que a home seja a '/'
+})->name('termos');
 // Se você não for usar o sistema de autenticação padrão do Laravel (Breeze/Jetstream)
 // e vai gerenciar usuários apenas pela tabela 'usuarios', você pode *remover* ou comentar
 // as rotas de autenticação padrão do Breeze/Jetstream, pois elas ainda apontariam para o Model User

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,9 +12,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    
     <div class="container">
         <div class="form-container">
-            <h1 class="logo">c<span class="logo-o">o</span>nexus</h1>
+            <h1 class="logo">C<span class="logo-o">o</span>nexus</h1>
             <h2>Crie sua conta</h2>
             <p>Junte-se à nossa comunidade para compartilhar experiências.</p>
             <form action="{{ route('cadastro.store') }}" method="POST">
@@ -64,16 +66,18 @@
 
     <div class="checkbox-group">
         <input type="checkbox" id="termos" name="termos" required {{ old('termos') ? 'checked' : '' }}>
-        <label for="termos">Eu li e concordo com os <a href="{{ url('/termos-de-servico') }}" target="_blank">Termos de Serviço</a>.</label>
+        <label for="termos">Eu li e concordo com os <a href="{{ route('termos') }}" target="_blank">Termos de Serviço</a>.</label>
     </div>
 
     <button type="submit" class="submit-btn">Cadastrar</button>
     </form>
-            <p class="login-link">Já tem uma conta? <a href="">Faça login</a></p>
+            <p class="login-link">Já tem uma conta? <a href="{{ route('login') }}">Faça login</a></p>
+            <p class="login-link">Voltar para o <a href="{{ route('home') }}">Inicio</a></p>
         </div>
     </div>
 
     
     <script src="{{ asset('js/masks.js') }}"></script>
+    
 </body>
 </html>

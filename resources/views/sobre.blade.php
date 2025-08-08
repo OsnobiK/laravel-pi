@@ -14,7 +14,7 @@
 
     <container class="sobre">
         <div class="imagem">
-            <img src="{{ asset('SRC/sobrenos1.png') }}" alt="Equipe ou empresa">
+            <img src="{{ asset('SRC/sala-imagem.png') }}" alt="Equipe ou empresa">
         </div>
         <div class="conteudo">
             <h2>Quem somos</h2>

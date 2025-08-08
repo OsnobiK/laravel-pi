@@ -125,7 +125,9 @@ p {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
 }
+
 
 .submit-btn:hover {
     background-color: #4ac78b;
@@ -135,14 +137,16 @@ p {
 /* --- Link de Login --- */
 .login-link {
     text-align: center;
-    margin-top: 20px;
     font-size: 0.9rem;
+    margin: 0;
+    line-height: 30px;
 }
 
 .login-link a {
     color: #59dda0;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 800;
+    
 }
 
 .login-link a:hover {   

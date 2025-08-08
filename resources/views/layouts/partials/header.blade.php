@@ -11,7 +11,7 @@
       <section class="menu-desktop">
         <nav>
           <ul class="links">
-            <li><a href="../perfil/index.php">Perfil</a></li>
+            <li><a href="{{ route('perfil') }}">Perfil</a></li>
             <li><a href="{{ route('area-user') }}">Aréa de Usuário</a></li>
             <li><a href="{{ route('sobre') }}">Sobre Nós</a></li>
             <li><a href="">Salas</a></li>
@@ -27,7 +27,7 @@
 
       <nav class="menu-mobile-nav" id="menu-mobile-nav">
         <ul>
-          <li><a href="{{ route('cadastro.create') }}">Cadastre-se</a></li>
+          <li><a href="{{ route('perfil') }}">Perfl</a></li>
           <li><a href="{{ route('area-user') }}">Aréa de Usuário</a></li>
           <li><a href="{{ route('sobre') }}">Sobre Nós</a></li>
           <li><a href="">Salas</a></li>
@@ -46,7 +46,7 @@
       </form>
 
       <section class="btn-contato">
-        <a href="{{ route('cadastro.create') }}">
+        <a href="{{ route('login') }}">
             <button>Conecte-se</button>
         </a>
       </section>
