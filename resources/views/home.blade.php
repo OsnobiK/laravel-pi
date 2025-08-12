@@ -1,4 +1,6 @@
 @extends('layouts.app')
+ 
+@section('content')
 <!DOCTYPE html>
 <html lang="pt-br">  
 <head>
@@ -8,30 +10,29 @@
     <link rel="stylesheet" href="{{ asset('CSS/styles-home.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Conexus</title>
-    
+   
 </head>
-
+ 
     <!-- -->
 <body>
-    @section('content')
   <h4 class="text-h4"><strong>Seja bem-vindo à C<span class="string-span">o</span>nexus</strong></h4>
-
+ 
     <!-- Slider -->
     <div class="container-slider">
         <button id="prev-button"><img src="{{ asset('SRC/arrow.png') }}" alt="prev-button"></button>
         <div class="container-images">
         <img src="https://www.escoladainteligencia.com.br/wp-content/uploads/2016/09/O-poder-da-empatia-como-ela-impacta-a-vida-das-pessoas-2.jpg" alt="girl" class="slider on">
         <img src="{{ asset('SRC/Img-chat-reunião.jpg') }}" alt="chat" class="slider">
-        <img src="https://abcreporter.com.br/wp-content/uploads/2019/04/conexao-empatia.jpg" alt="girl" class="slider">
+        <img src="{{ asset('SRC/conexao-empatia.jpg') }}" alt="hands" class="slider">
         </div>
         <button id="next-button"><img src="{{ asset('SRC/arrow.png') }}" alt="next-button"></button>
     </div>
-
+ 
     <script src="{{ asset('JS/slide.js') }}"></script>
-
+ 
     <main>
         <section class="home">
-
+ 
             <!-- TEXTO -->
             <div class="home-text">
                 <h1 class="text-h1">Porque todo mundo precisa de um lugar para se <br><strong>"conectar"</strong></h1>
@@ -44,11 +45,11 @@
                 </p>
                 <a href="{{ route('login') }}" class="home-btn">Cadastre-se ou Faça Login</a>
             </div>
-
+ 
             <!-- CARDS -->
             <div class="cards-container">
                 <a href="#card1" class="card">
-                    <img src="{{ asset('SRC/imagem_home.png') }}" alt="Cérebro com coração" />
+                    <img src="{{ asset('SRC/Saúde Mental.png') }}" alt="Cérebro com coração" />
                     <p><strong>Aqui, você se conecta com pessoas que sabem ouvir, que compartilham histórias, que
                             acolhem sem perguntas estranhas ou olhares tortos.
                             É um lugar pra conversar de verdade, sem máscaras, sem julgamentos.</strong></p>
@@ -69,7 +70,7 @@
                 </a>
             </div>
         </section>
-
+ 
         <container class="back-video">
             <div class="home-video">
                 <video id="narracao" play muted playsinline>
@@ -79,14 +80,14 @@
                 <button id="audio-btn">🔊 Ativar som</button>
             </div>
         </container>
-
+ 
     </main>
-
+ 
     <script>
     const video = document.getElementById('narracao');
     const audioBtn = document.getElementById('audio-btn');
     let isMuted = true;
-
+ 
     video.addEventListener('click', () => {
         if (video.paused || video.ended) {
             video.play();
@@ -94,7 +95,7 @@
             video.pause();
         }
     });
-
+ 
     audioBtn.addEventListener('click', () => {
         isMuted = !isMuted;
         video.muted = isMuted;
@@ -102,8 +103,7 @@
         video.play();
     });
     </script>
-
-</body>
-    
-    @endsection
  
+</body>
+   
+    @endsection

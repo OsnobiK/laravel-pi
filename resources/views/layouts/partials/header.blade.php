@@ -1,36 +1,36 @@
 <link rel="stylesheet" href="{{ asset('CSS/styles-parciais.css')}}">
 </head>
 <body>
-  
+ 
   <header>
     <div class="interface">
       <section class="logo">
         <a href="{{ route('home') }}" class="logo">C<span>o</span>nexus</a>
       </section>
-
+ 
       <section class="menu-desktop">
         <nav>
           <ul class="links">
             <li><a href="{{ route('perfil') }}">Perfil</a></li>
             <li><a href="{{ route('area-user') }}">Aréa de Usuário</a></li>
             <li><a href="{{ route('sobre') }}">Sobre Nós</a></li>
-            <li><a href="">Salas</a></li>
+            <li><a href="#">Salas</a></li>
           </ul>
         </nav>
       </section>
-
+ 
       <div class="menu-mobile" id="menu-mobile">
         <span></span>
         <span></span>
         <span></span>
       </div>
-
+ 
       <nav class="menu-mobile-nav" id="menu-mobile-nav">
         <ul>
-          <li><a href="{{ route('perfil') }}">Perfl</a></li>
+          <li><a href="{{ route('perfil') }}">Perfil</a></li>
           <li><a href="{{ route('area-user') }}">Aréa de Usuário</a></li>
           <li><a href="{{ route('sobre') }}">Sobre Nós</a></li>
-          <li><a href="">Salas</a></li>
+          <li><a href="#">Salas</a></li>
           <li>
             <form class="search-form-mobile" action="#" method="get">
               <input type="text" name="q" placeholder="Buscar..." />
@@ -39,12 +39,15 @@
           </li>
         </ul>
       </nav>
-
-      <form class="search-form" action="#" method="get">
-        <input type="text" name="q" placeholder="Buscar..." />
-        <button type="submit">&#128269;</button>
-      </form>
-
+ 
+  <form class="search-form" action="#" method="get">
+  <div class="search-container">
+    <input type="text" name="q" placeholder="Buscar..." class="search-input" />
+    <button type="submit" class="search-button">&#128269;</button>
+  </div>
+</form>
+ 
+ 
       <section class="btn-contato">
         <a href="{{ route('login') }}">
             <button>Conecte-se</button>

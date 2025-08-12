@@ -62,6 +62,21 @@
         .editar-btn:hover {
             background: #0056b3;
         }
+        .button {
+    display: inline-block;
+    background-color: #007bff;
+    margin: 10px;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #6af3c3;
+        }
         
     </style>
 </head>
@@ -78,7 +93,11 @@
             <div><strong>Telefone:</strong> (11) 99999-9999</div>
             <div><strong>Senha:</strong> *************</div>
         
-        <button class="editar-btn">Editar Perfil</button>
+        
+        <a class="button" href="{{ route('home') }}">Editar Perfil</a>
+        <a class="button"href="{{ route('cadastrolaudo') }}">Cadastrar Laudo</a>
+        <a class="button"href="{{ route('home') }}">Ver Laudos</a>
+            
     </div>
     </div>
     @endsection ('content')
