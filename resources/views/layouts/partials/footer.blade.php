@@ -14,10 +14,10 @@
         <div class="footer-section">
             <h4>Links Rápidos</h4>
             <ul>
-                <li><a href="../home/index.php">Home</a></li>
-                <li><a href="../sobrenos/index.php">Sobre Nós</a></li>
-                <li><a href="#">Serviços</a></li>
-                <li><a href="#">Contato</a></li>
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('area-user') }}">Area do Usuario</a></li>
+                <li><a href="{{ route('sobre') }}">Sobre Nós</a></li>
+                <li><a href="{{ route('perfil') }}">Perfil</a></li>
             </ul>
         </div>
 
@@ -35,7 +35,7 @@
                         class="fab fa-facebook"></i></a>
                 <a href="https://www.linkedin.com/?locale=pt_BR" target="_blank" arial-label="Linkedin"><i
                         class="fab fa-linkedin"></i></a>
-                <a href="https://www.instagram.com/?locale=pt_BR" target="_blank" arial-label="Instgram"><i
+                <a href="https://www.instagram.com/ocaleb_soares/" target="_blank" arial-label="Instgram"><i
                         class="fab fa-instagram"></i></a>
             </div>
         </div>
