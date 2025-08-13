@@ -46,7 +46,7 @@
                         <label for="manter-conectado">Manter-me conectado</label>
                     </div>
                     {{-- Troque o link estático por uma rota, se tiver uma --}}
-                    <a href="{{ route('perfil') }}" class="forgot-password">Esqueci a senha</a>
+                    <a href="{{ route('recuperacao') }}" class="forgot-password">Esqueci a senha</a>
                 </div>
 
                 <button type="submit" class="submit-btn">Entrar</button>

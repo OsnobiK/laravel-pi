@@ -59,6 +59,15 @@ Route::get('/termos', function () {
 Route::get('/cadastrolaudo', function () {
     return view('cadastrolaudo');
 })->name('cadastrolaudo');
+
+Route::get('/recuperacao', function () {
+    return view('recuperacao');
+})->name('recuperacao');
+
+Route::get('/redefinicao', function () {
+    return view('redefinicao');
+})->name('redefinicao');
+
 // Se você não for usar o sistema de autenticação padrão do Laravel (Breeze/Jetstream)
 // e vai gerenciar usuários apenas pela tabela 'usuarios', você pode *remover* ou comentar
 // as rotas de autenticação padrão do Breeze/Jetstream, pois elas ainda apontariam para o Model User
