@@ -18,26 +18,32 @@
             <h2>Bem-vindo de volta!</h2>
             <p>Acesse sua conta para continuar.</p>
 
-            {{-- Formulário agora aponta para a rota 'login' com o método POST --}}
-            <form method="POST" action="{{ route('login') }}">
-                @csrf {{-- DIRETIVA DE SEGURANÇA ESSENCIAL DO LARAVEL --}}
+                 <!-- MENSAGENS DE ERRO DE VALIDAÇÃO -->
+            @if ($errors->any())
+                <div class="error-message">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <!-- MENSAGEM DE ERRO DE LOGIN INVÁLIDO -->
+            @if(session('error'))
+                <p style="color: red">{{ session('error') }}</p>
+            @endif
+
+
 
                 <div class="input-group">
                     <label for="email">Email</label>
-                    {{-- O old('email') recupera o email digitado em caso de erro --}}
-                    <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com" value="{{ old('email') }}" required>
+                    <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com" required>
                 </div>
-
-                {{-- Bloco para exibir a mensagem de erro --}}
-                @error('email')
-                    <div class="alert-error" style="color: red; font-size: 0.9em; margin-top: -10px; margin-bottom: 10px;">
-                        <span>{{ $message }}</span>
-                    </div>
-                @enderror
-
+ 
                 <div class="input-group">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                    <input type="password" id="senha" name="password" placeholder="Digite sua senha" required>
                 </div>
 
                 <div class="options-group">
