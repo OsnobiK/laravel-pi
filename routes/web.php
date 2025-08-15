@@ -47,17 +47,6 @@ Route::get('/sobre', function () {
     return view('sobre'); 
 })->name('sobre'); 
 
-
-
-Route::get('/login', function () {
-    return view('login'); 
-})->name('login');
-
-
-Route::get('/perfil', function () {
-    return view('perfil'); // <<-- Sugiro que a home seja a '/'
-})->name('perfil');// <-- Adiciona o fechamento do grupo middleware
-
 Route::get('/termos', function () {
     return view('termos');
 })->name('termos');
@@ -75,27 +64,12 @@ Route::get('/redefinicao', function () {
 })->name('redefinicao');
 
 // ... outras rotas
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-});
-
-// ROTAS DE LOGIN PERSONALIZADAS
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// LOGOUT (encerra sessão e redireciona para Home)
-Route::post('/logout', function (Request $request) {
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect()->route('home');
-})->name('logout');
-
-
-// ROTA PARA ÁREA DO USUÁRIO (protegida por autenticação)
-Route::middleware('auth')->group(function () {
+// Área do usuário (protegida)
+Route::middleware('auth')->group(function () { // Corrigido: middleware 'auth'
     Route::get('/area-usuario', function () {
         return view('area-user');
     })->name('area.usuario');
@@ -103,13 +77,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/area', function () {
         return redirect()->route('area.usuario');
     })->name('area-user');
+
+    Route::middleware('auth')->group(function () {
+    Route::get('/perfil', function () {
+        return view('perfil');
+    })->name('perfil');
+});
 });
 
 
 
 
-// Se você não for usar o sistema de autenticação padrão do Laravel (Breeze/Jetstream)
-// e vai gerenciar usuários apenas pela tabela 'usuarios', você pode *remover* ou comentar
-// as rotas de autenticação padrão do Breeze/Jetstream, pois elas ainda apontariam para o Model User
-// e a tabela users.
-// require __DIR__.'/auth.php'; // Comente ou remova esta linha se não precisar mais.

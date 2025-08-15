@@ -9,14 +9,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            background: #e3e1e1;
             margin: 0;
             padding: 0;
         }
         .perfil-container {
-            background: #fff;
+            background-color: #fff;
             max-width: 800px;
-            max-height: 800px;
+            max-height: 1030px;
             margin: 40px auto;
             padding: 30px 20px;
             border-radius: 10px;
@@ -73,6 +73,22 @@
     text-decoration: none;
     transition: background 0.3s ease;
         }
+        .button1 {
+            display: inline-block;
+    background-color: #cf0404;
+    margin: 10px;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 10px;
+    border-color: #cf0404;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+
+        } 
+        .button1:hover {
+            background-color: #ff0303;
+        }
 
         .button:hover {
             background-color: #6af3c3;
@@ -83,7 +99,9 @@
 @section ('content')
         
 <body>
+    
     <div class="perfil-container">
+          <h1 class="text-center my-4">Perfil de Usuário</h1>
         <img src="{{ asset('SRC/regullus.jpg') }}" alt="Foto do Usuário" class="perfil-foto">
         <div class="perfil-nome">Regullus Corneas</div>
         <div class="perfil-email">RegullusCorneas@email.com</div>
@@ -97,6 +115,10 @@
         <a class="button" href="{{ route('home') }}">Editar Perfil</a>
         <a class="button"href="{{ route('cadastrolaudo') }}">Cadastrar Laudo</a>
         <a class="button"href="{{ route('home') }}">Ver Laudos</a>
+        <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button class="button1" type="submit" class="logout-btn">Desconectar</button>
+</form>
             
     </div>
     </div>

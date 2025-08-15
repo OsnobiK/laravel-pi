@@ -1,16 +1,16 @@
 <?php
  
 namespace App\Http\Controllers;
- 
+use App\Models\Usuario; // Certifique-se de importar o modelo User
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; // Corrigido de Login para Auth
  
 class AuthController extends Controller
 {
     // Exibe o formulário de login
     public function showLoginForm()
     {
-        return view('login'); // resources/views/login.blade.php
+        return view('login'); // [login.blade.php](http://_vscodecontentref_/1)
     }
  
     // Processa o login
@@ -21,7 +21,7 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
  
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
+        if (Auth::attempt($credentials, $request->filled('remember'))) { // Corrigido de Login para Auth
             $request->session()->regenerate();
             return redirect()->intended('/area-usuario'); // ou route('area.usuario')
         }
@@ -34,12 +34,11 @@ class AuthController extends Controller
     // Faz logout
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::logout(); // Corrigido de Login para Auth
  
         $request->session()->invalidate();
         $request->session()->regenerateToken();
- 
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Você saiu da conta com sucesso!.');
     }
 }
  
