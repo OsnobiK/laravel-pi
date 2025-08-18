@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalaController;
+use App\Http\Controllers\LaudoController;
+use App\Http\Controllers\MedicoController;
 
 // Importe seu controller
 
@@ -83,6 +86,38 @@ Route::middleware('auth')->group(function () { // Corrigido: middleware 'auth'
         return view('perfil');
     })->name('perfil');
 });
+});
+
+
+
+Route::get('/cadastromedico', function () {
+    return view('cadastromedico');
+})->name('cadastromedico');// <-- Adiciona o fechamento do grupo middleware
+ 
+// ROTAS DE SALAS
+Route::get('/salas', [SalaController::class, 'index'])->name('salas.index');
+Route::get('/criar-salas', [SalaController::class, 'create'])->name('criar-salas');
+Route::post('/salas', [SalaController::class, 'store'])->name('salas.store');
+ 
+// Laudo
+Route::post('/laudo', [LaudoController::class, 'store'])->name('laudo.store');
+ 
+// Escolha
+ 
+Route::get('/escolha', function () {
+    return view('escolha');
+})->name('escolha');
+ 
+// Rota para exibir o formulário de cadastro
+Route::get('/cadastromedico', [MedicoController::class, 'create'])->name('cadastromedico.create');
+ 
+// Rota para processar o formulário de cadastro
+Route::post('/cadastromedico', [MedicoController::class, 'store'])->name('cadastromedico.store');
+ 
+Route::middleware('auth.medicos')->group(function () {
+    Route::get('/perfil-medico', function () {
+        return view('perfil-medico');
+    });
 });
 
 

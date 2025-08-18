@@ -16,6 +16,9 @@ return [
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' => env('AUTH_GUARD', 'medico'),  // Alterar 'web' para 'medico'
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'medicos'),  // Alterar de 'users' para 'medicos'
+
     ],
  
     /*
@@ -40,6 +43,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+         // Novo guard para médico
+        'medico' => [
+            'driver' => 'session',
+            'provider' => 'medicos',
+        ],
+
     ],
  
     /*
@@ -64,6 +74,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Usuario::class, // <<-- TROCAR DE User::class para Usuario::class
         ],
+         // Novo provider
+        'medicos' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Medico::class,
+    ],
+
     ],
  
  

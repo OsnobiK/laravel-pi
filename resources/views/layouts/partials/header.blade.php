@@ -14,7 +14,7 @@
             <li><a href="{{ route('perfil') }}">Perfil</a></li>
             <li><a href="{{ route('area-user') }}">Aréa de Usuário</a></li>
             <li><a href="{{ route('sobre') }}">Sobre Nós</a></li>
-            <li><a href="#">Salas</a></li>
+            <li><a href="{{ route('salas.index') }}">Salas</a></li>
           </ul>
         </nav>
       </section>
@@ -49,7 +49,7 @@
  
  
       <section class="btn-contato">
-        <a href="{{ route('login') }}">
+        <a href="{{ route('escolha') }}">
             <button>Conecte-se</button>
         </a>
       </section>
