@@ -14,22 +14,23 @@ class AuthController extends Controller
     }
  
     // Processa o login
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
- 
-        if (Auth::attempt($credentials, $request->filled('remember'))) { // Corrigido de Login para Auth
-            $request->session()->regenerate();
-            return redirect()->intended('/area-usuario'); // ou route('area.usuario')
-        }
- 
-        return back()->withErrors([
-            'email' => 'Email ou senha incorretos.',
-        ])->withInput();
+  public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    // Seja explícito, usando o mesmo guarda que configuramos
+    if (Auth::guard('web')->attempt($credentials, $request->filled('remember'))) {
+        $request->session()->regenerate();
+        return redirect()->intended('area-user');
     }
+
+    return back()->withErrors([
+        'email' => 'Email ou senha incorretos.',
+    ])->withInput();
+}
  
     // Faz logout
     public function logout(Request $request)

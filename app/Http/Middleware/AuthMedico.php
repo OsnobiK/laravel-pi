@@ -16,9 +16,12 @@ class AuthMedico
      */
     public function handle(Request $request, Closure $next): Response
     {
-       if (!Auth::guard('medico')->check()) {
-        return redirect('/login'); // ou rota específica para médicos
+        // 👇 CORREÇÃO AQUI 👇
+        if (!Auth::guard('medicos')->check()) {
+            // Sugestão: Adicionar uma mensagem de erro para o usuário entender o que aconteceu.
+            return redirect('/login')->with('error', 'Acesso negado. Você precisa ser um médico autenticado para ver esta página.');
+        }
+
+        return $next($request);
     }
-    return $next($request);
-}
 }
