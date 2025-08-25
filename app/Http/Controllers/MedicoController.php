@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Medico;
 use App\Models\Usuario;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules;
 

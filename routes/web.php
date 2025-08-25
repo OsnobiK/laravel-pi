@@ -3,8 +3,24 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CadastroController;
+use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\LaudoController;
 use App\Http\Controllers\MedicoController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalaController;
+
+/*
+|--------------------------------------------------------------------------
+| Rotas Públicas (acessíveis por todos)
+|--------------------------------------------------------------------------
+*/
+
+// Home
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+// Rotas de Cadastro de Usuário
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalaController;
 
@@ -26,7 +42,11 @@ Route::post('/cadastro', [CadastroController::class, 'store'])->name('cadastro.s
 // Rotas de Cadastro de Médico
 Route::get('/cadastromedico', [MedicoController::class, 'create'])->name('cadastromedico.create');
 Route::post('/cadastromedico', [MedicoController::class, 'store'])->name('cadastromedico.store');
+// Rotas de Cadastro de Médico
+Route::get('/cadastromedico', [MedicoController::class, 'create'])->name('cadastromedico.create');
+Route::post('/cadastromedico', [MedicoController::class, 'store'])->name('cadastromedico.store');
 
+// Rotas de Autenticação
 // Rotas de Autenticação
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
