@@ -40,11 +40,12 @@ class CadastroController extends Controller
                 'cpf' => $request->cpf,
                 'telefone' => $request->telefone,
                 'email' => $request->email,
-                'password' => Hash::make($request->senha), // <<-- MUDANÇA AQUI: O campo é 'senha' no formulário
+                'password' => Hash::make($request->password), // <<-- MUDANÇA AQUI: O campo é 'senha' no formulário
             ]);
 
             // Opcional: Autenticar o usuário recém-cadastrado
             // auth()->login($usuario);
+            Auth::login($usuario);
 
             // Redireciona para a home com uma mensagem de sucesso
             return redirect('/')->with('success', 'Cadastro realizado com sucesso! Bem-vindo(a) à Conexus.');
