@@ -30,7 +30,7 @@ public function store(Request $request)
         Auth::login($usuario);
 
         // E redireciona com sucesso
-        return redirect()->route('perfil.show')->with('success', 'Cadastro realizado com sucesso!');
+        return redirect()->route('perfil.show')->with('success', 'Cadastro realizado com sucesso!!!');
 
     } catch (\Exception $e) {
         // 👇 SE ALGO DER ERRADO, O CÓDIGO VAI PARAR AQUI E MOSTRAR O ERRO REAL 👇
@@ -38,7 +38,7 @@ public function store(Request $request)
 
         // O código abaixo não será executado enquanto o dd() estiver ativo
         Log::error('Erro ao cadastrar usuário: ' . $e->getMessage());
-        return back()->withInput()->withErrors(['cadastro' => 'Erro ao realizar cadastro. Por favor, tente novamente.']);
+        return back()->withInput()->withErrors(['cadastro' => ' Erro ao realizar cadastro. Por favor, tente novamente.']);
     }
 }
 }
