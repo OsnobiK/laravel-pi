@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     // Rotas de Perfil
     Route::get('/perfil', [ProfileController::class, 'show'])->name('perfil.show');
     Route::get('/perfil/editar', [ProfileController::class, 'edit'])->name('perfil.edit');
-    Route::patch('/perfil', [ProfileController::class, 'update'])->name('perfil.update');
+    Route::patch('/perfil/editar', [ProfileController::class, 'update'])->name('perfil.update');
 
     // Rotas de Salas
     Route::get('/salas', [SalaController::class, 'index'])->name('salas.index');

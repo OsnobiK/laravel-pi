@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
@@ -21,40 +19,43 @@ class ProfileController extends Controller
         return view('perfil-edit', ['user' => Auth::user()]);
     }
 
-    public function update(Request $request)
+    public function update(ProfileUpdateRequest $request)
     {
-        /** @var \App\Models\Usuario $user */
-        $user = Auth::user();
+        $user = $request->user();
+        
+        // Pega apenas os dados que passaram na validação (ou seja, os que foram enviados)
+        $validatedData = $request->validated();
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('usuarios')->ignore($user->id)],
-            'telefone' => ['nullable', 'string', 'max:20'],
-            'cidade' => ['nullable', 'string', 'max:100'],
-            'password' => ['nullable', 'confirmed', Password::defaults()],
-            'profile_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
-        ]);
-
-        // Atualiza os dados
-        $user->fill($request->only(['name', 'email', 'telefone', 'cidade']));
-
-        // Atualiza a senha APENAS se uma nova foi digitada
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
+        // Atualiza os campos apenas se eles existirem nos dados validados
+        if (isset($validatedData['name'])) {
+            $user->name = $validatedData['name'];
+        }
+        if (isset($validatedData['email'])) {
+            $user->email = $validatedData['email'];
+        }
+        if (isset($validatedData['telefone'])) {
+            $user->telefone = $validatedData['telefone'];
+        }
+        if (isset($validatedData['cidade'])) {
+            $user->cidade = $validatedData['cidade'];
         }
 
-        // Faz o upload da imagem de perfil APENAS se uma nova foi enviada
+        // Se uma nova senha foi enviada, atualize-a
+        if (!empty($validatedData['password'])) {
+            $user->password = Hash::make($validatedData['password']);
+        }
+        
+        // Lógica para salvar a imagem de perfil, se uma nova foi enviada
         if ($request->hasFile('profile_image')) {
-            // Deleta a imagem antiga se existir
             if ($user->profile_image) {
                 Storage::disk('public')->delete($user->profile_image);
             }
             $path = $request->file('profile_image')->store('profile-images', 'public');
             $user->profile_image = $path;
         }
-        
+
         $user->save();
 
-        return redirect()->route('perfil.show')->with('success', 'Perfil atualizado com sucesso!');
+        return redirect()->route('perfil.edit')->with('success', 'Perfil atualizado com sucesso!');
     }
 }

@@ -17,7 +17,7 @@
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('area-user') }}">Area do Usuario</a></li>
                 <li><a href="{{ route('sobre') }}">Sobre Nós</a></li>
-                <li><a href="{{ route('perfil.show') }}">Perfil</a></li>
+                <li><a href="{{ route('termos') }}">Termos e Serviços</a></li>
             </ul>
         </div>
 

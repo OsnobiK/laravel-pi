@@ -18,6 +18,7 @@
             padding: 0 !important;
         }
     </style>
+    
     </head>
 <body>
 @include('layouts.partials.header') 
