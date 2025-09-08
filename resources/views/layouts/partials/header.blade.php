@@ -88,7 +88,7 @@
     
     .btn-connect { color: #fff; border: 1px solid #fff; background-color: transparent; padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; }
     .user-menu { position: relative; cursor: pointer; }
-    .user-avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #59dda0; }
+    .user-avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid linear-gradient(45deg, #00ffcc, #7700ff, #00ffd0, #00ff91)0; }
     .dropdown-menu { display: none; position: absolute; top: 70px; right: 0; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 220px; overflow: hidden; z-index: 1001; }
     .dropdown-menu.active { display: block; }
     .dropdown-menu a, .dropdown-menu button { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 14px 20px; color: #4a5568; text-decoration: none; font-weight: 500; background: none; border: none; font-size: 1.05rem; cursor: pointer; }
