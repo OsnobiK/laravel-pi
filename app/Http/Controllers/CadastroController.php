@@ -2,66 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Traits\CreatesNewUsers; // Importa o Trait
+use App\Models\User; // <-- IMPORTANTE: Importe o model User (ou Usuario)
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash; // <-- IMPORTANTE: Importe a classe Hash
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Exception; // Importa a classe Exception para o bloco catch
 
 class CadastroController extends Controller
 {
-    use CreatesNewUsers;
-    protected function validator(array $data)
-{
-    return Validator::make($data, [
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios'], // ou 'unique:users'
-        'password' => ['required', 'string', 'min:8', 'confirmed'],
-        'role' => ['required', 'string', Rule::in(['user', 'medico'])], // <-- ADICIONE ESTA LINHA
-    ]);
-} // "Usa" o Trait dentro da classe
-
-    public function create()
-    
+    /**
+     * Exibe o formulário de cadastro.
+     * O nome do método foi alterado de create() para showRegistrationForm()
+     * para seguir as convenções do Laravel e evitar conflito de nomes.
+     */
+    public function showRegistrationForm()
     {
         return view('cadastro');
     }
 
-    protected function create(array $data)
-{
-    return User::create([ // ou return Usuario::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password']),
-        'role' => $data['role'], // <-- ADICIONE ESTA LINHA
-    ]);
-}
+    /**
+     * Lida com a submissão do formulário de cadastro.
+     * Valida os dados e cria um novo usuário.
+     */
+    public function store(Request $request)
+    {
+        // 1. Validação dos dados
+        $this->validator($request->all())->validate();
 
-   // Em app/Http/Controllers/CadastroController.php
+        try {
+            // 2. Criação do usuário
+            $usuario = $this->createUser($request->all());
 
+            // 3. Login do novo usuário
+            Auth::login($usuario);
 
-public function store(Request $request)
-{
-    // A linha dd($request->all()); foi removida daqui.
+            // 4. Redirecionamento com mensagem de sucesso
+            return redirect()->route('perfil.show')->with('success', 'Cadastro realizado com sucesso!');
 
-    try {
-        // Tenta chamar o método do Trait para validar e criar o usuário
-        $usuario = $this->createUser($request);
+        } catch (Exception $e) {
+            // Em caso de erro, registra o erro detalhado no log
+            Log::error('Erro ao cadastrar usuário: ' . $e->getMessage());
 
-        // Se der certo, faz o login
-        Auth::login($usuario);
-
-        // E redireciona com sucesso
-        return redirect()->route('perfil.show')->with('success', 'Cadastro realizado com sucesso!!!');
-
-    } catch (\Exception $e) {
-        // 👇 SE ALGO DER ERRADO, O CÓDIGO VAI PARAR AQUI E MOSTRAR O ERRO REAL 👇
-        dd($e->getMessage()); 
-
-        // O código abaixo não será executado enquanto o dd() estiver ativo
-        Log::error('Erro ao cadastrar usuário: ' . $e->getMessage());
-        return back()->withInput()->withErrors(['cadastro' => ' Erro ao realizar cadastro. Por favor, tente novamente.']);
+            // Retorna para o formulário anterior com os dados preenchidos e uma mensagem de erro amigável
+            return back()->withInput()->withErrors(['cadastro' => 'Não foi possível realizar o cadastro. Por favor, tente novamente mais tarde.']);
+        }
     }
-}
+
+    /**
+     * Valida os dados de entrada para o registro de um novo usuário.
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            // Certifique-se que 'usuarios' é o nome correto da sua tabela no banco de dados
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'string', Rule::in(['user', 'medico'])],
+        ]);
+    }
+
+    /**
+     * Cria uma nova instância de usuário após uma validação bem-sucedida.
+     * O nome do método foi alterado de create() para createUser()
+     * para evitar conflito com o método que exibe o formulário.
+     *
+     * @param  array  $data
+     * @return \App\Models\User
+     */
+    protected function createUser(array $data)
+    {
+        // Certifique-se de que está usando o Model correto (User ou Usuario)
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'role' => $data['role'],
+        ]);
+    }
 }
