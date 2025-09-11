@@ -21,19 +21,18 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        
-
         body {
             background-color: #ffffff;
             color: #2d3748;
         }
-
+        
+     
         /* |--------------------------------------------------------------------------
         | Estilos do Header
         |-------------------------------------------------------------------------- */
         .main-header {
             background: linear-gradient(135deg, #14afa0, #6c57d4);
-            padding: 0 20px; /* Reduzido para melhor encaixe em telas menores */
+            padding: 0 20px;
             height: 80px;
             display: flex;
             align-items: center;
@@ -64,14 +63,13 @@
         }
 
         .main-nav {
-            /* O menu principal será centralizado em telas grandes */
             flex-grow: 1;
         }
         
         .main-nav ul {
             list-style: none;
             display: flex;
-            justify-content: center; /* Centraliza os itens */
+            justify-content: center;
             gap: 40px;
             align-items: center;
         }
@@ -79,7 +77,7 @@
         .main-nav a {
             color: #ffffff;
             text-decoration: none;
-            font-weight: 600; /* Um pouco mais de peso */
+            font-weight: 600;
             font-size: 1.1rem;
             position: relative;
             padding-bottom: 5px;
@@ -128,12 +126,15 @@
             position: relative;
             cursor: pointer;
         }
+
+        /* 👇 MUDANÇA AQUI: Aplicando o degradê na borda do avatar */
         .user-avatar {
             width: 55px;
             height: 55px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #59dda0;
+            padding: 3px; /* Espessura da borda */
+            background: linear-gradient(45deg, #59dda0, #00a2ff, #ff00ea);
         }
 
         .dropdown-menu {
@@ -168,7 +169,6 @@
         .dropdown-menu a:hover, .dropdown-menu button:hover { background-color: #f0f2f5; }
         .dropdown-menu .logout-form { margin: 0; }
 
-        /* Ícone do Menu Mobile (Hambúrguer) - Escondido por padrão */
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -185,22 +185,20 @@
         }
 
         /* |--------------------------------------------------------------------------
-        | ESTILOS RESPONSIVOS - A MÁGICA ACONTECE AQUI
+        | ESTILOS RESPONSIVOS
         |-------------------------------------------------------------------------- */
         @media (max-width: 1024px) {
             .main-nav {
-                /* Esconde o menu principal de desktop */
                 display: none;
-                /* Prepara para virar o menu mobile */
                 position: absolute;
-                top: 80px; /* Altura do header */
+                top: 80px;
                 left: 0;
                 width: 100%;
                 background-color: #ffffff;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             }
             .main-nav.active {
-                display: block; /* Mostra o menu quando ativo */
+                display: block;
             }
             .main-nav ul {
                 flex-direction: column;
@@ -208,7 +206,7 @@
                 padding: 10px 0;
             }
             .main-nav a {
-                color: #2d3748; /* Cor escura para fundo claro */
+                color: #2d3748;
                 display: block;
                 width: 100%;
                 padding: 15px 20px;
@@ -220,14 +218,13 @@
                 color: var(--cor-primaria);
             }
             .main-nav a::after {
-                display: none; /* Remove efeito de sublinhado no mobile */
+                display: none;
             }
 
             .mobile-menu-toggle {
-                display: block; /* Mostra o botão hambúrguer */
+                display: block;
             }
 
-            /* Animação do botão para virar um "X" */
             .mobile-menu-toggle.active .line1 {
                 transform: rotate(-45deg) translate(-7px, 7px);
             }
@@ -247,7 +244,7 @@
         @yield('content')
     </main>
 
-    {{-- Se você tiver um footer, ele pode ser incluído aqui --}}
     {{-- @include('layouts.partials.footer') --}}
 </body>
 </html>
+

@@ -68,7 +68,26 @@ Route::middleware('auth')->group(function () {
 
     // Rotas de Laudos
     Route::get('/cadastrolaudo', fn() => view('cadastrolaudo'))->name('cadastrolaudo');
-    Route::post('/laudo', [LaudoController::class, 'store'])->name('laudo.store');
+    Route::post('/laudo', [LaudoController::class, 'store'])->name('laudo.store')
+    ->middleware(['auth', 'role:medico']);
+
+    Route::post('/salas/{id}/agendar', [SalaController::class, 'agendar'])->middleware('auth')->name('salas.agendar')
+    ->middleware(['auth', 'role:medico']);
+ 
+    Route::get('/espera-de-salas', [EsperaController::class, 'salasAgendadas'])->name('espera-de-salas')->middleware('auth')
+    ->middleware(['auth', 'role:medico']);
+ 
+    Route::get('/salas-criadas', [SalaController::class, 'minhasSalas'])->middleware('auth')->name('salas.criadas')
+    ->middleware(['auth', 'role:medico']);
+ 
+    Route::get('/laudo-pendente/novo', [LaudoPendenteController::class, 'create'])->name('laudo.pendente.create')
+    ->middleware(['auth', 'role:medico']);
+    Route::post('/laudo-pendente/enviar', [LaudoPendenteController::class, 'store'])->name('laudo.pendente.store')
+    ->middleware(['auth', 'role:medico']);
+ 
+    Route::get('/laudos-pendentes', [LaudoPendenteController::class, 'index'])->name('laudo.pendente.index')
+    ->middleware(['auth', 'role:medico']);
+ 
 });
 
 // Grupo específico para médicos autenticados

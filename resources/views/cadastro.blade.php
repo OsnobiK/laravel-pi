@@ -17,6 +17,7 @@
             <h2>Crie sua conta</h2>
             <p>Junte-se à nossa comunidade para compartilhar experiências.</p>
             <form action="{{ route('cadastro.store') }}" method="POST">
+                <input type="hidden" name="role" value="user">
             
                 @csrf
 

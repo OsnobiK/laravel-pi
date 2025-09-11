@@ -28,7 +28,8 @@ class Usuario extends Authenticatable // <<-- Extende Authenticatable para poder
         'cpf',
         'telefone',
         'email',
-        'password', // O campo da senha no banco de dados deve ser 'password'
+        'password',
+        'role', // O campo da senha no banco de dados deve ser 'password'
     ]; // <<-- Inclua todos os campos que serão preenchidos via mass assignment
 
     /**

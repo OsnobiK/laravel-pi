@@ -10,7 +10,12 @@
             <ul>
                 <li><a href="{{ route('home') }}">Home</a></li>
                 @auth
+                @if(Auth::user()->role === 'user')
                     <li><a href="{{ route('salas.index') }}">Salas</a></li>
+                @endif
+                @if(Auth::user()->role === 'medico')
+                    <li><a href="{{ route('salas.index') }}">Criar Salas</a></li>
+                @endif
                 @endauth
                 <li><a href="{{ route('abordagem') }}">Abordagem</a></li>
                 <li><a href="{{ route('salas.index') }}">Agenda</a></li>
@@ -23,14 +28,21 @@
                 <div class="user-menu" id="userMenu">
                     @if(Auth::user()->profile_image)
                         {{-- LINHA CORRIGIDA --}}
-                        <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="Avatar do Usuário" class="user-avatar">
+                        <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="" class="user-avatar">
                     @else
-                        <img src="https://i.pinimg.com/736x/11/49/7f/11497f10b3711b1b42a9e327159fc50c.jpg" alt="Avatar Padrão" class="user-avatar">
+                        <img src="https://i.pinimg.com/736x/11/49/7f/11497f10b3711b1b42a9e327159fc50c.jpg" alt="" class="user-avatar">
                     @endif
 
                     <div class="dropdown-menu" id="dropdownMenu">
                         <a href="{{ route('perfil.show') }}">Meu Perfil</a>
+                        @if(Auth::user()->role === 'user')
                         <a href="{{ route('area-user') }}">Área de Usuário</a>
+                        @endif
+                        @if(Auth::user()->role === 'medico')
+                        <a href="{{-- route('painel.medico') --}}">Validação de Laudos</a>
+                        <a href="{{-- route('painel.medico') --}}">Fluxo de Usuarios</a>
+                        
+                        @endif
                         <form method="POST" action="{{ route('logout') }}" class="logout-form">
                             @csrf
                             <button type="submit">Sair</button>

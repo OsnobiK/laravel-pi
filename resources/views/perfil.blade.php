@@ -22,7 +22,7 @@
     body {
         font-family: 'Poppins', Arial, sans-serif;
         /* Fundo com um degradê suave para dar profundidade */
-        background-image: linear-gradient(120deg, #fdfbfb 0%, #defffe 100%);
+        background-color: white;
         margin: 0;
         padding: 20px;
         color: var(--cor-texto-principal);
@@ -54,7 +54,7 @@
         border-radius: 50%;
         object-fit: cover;
         padding: 5px; /* Aumentando o espaço da borda */
-        background: linear-gradient(45deg, var(--cor-primaria), #9b59b6, #e74c3c); /* Degradê mais rico */
+        background: linear-gradient(45deg, #59dda0, var(--cor-primaria), #6f00ff); /* Degradê mais rico */
         margin: 0 auto 20px auto;
         display: block;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -65,6 +65,31 @@
         font-weight: 700;
         margin-bottom: 2px;
         letter-spacing: -1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Estilo do crachá de identificação de papel (role) */
+    .role-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        border-radius: 20px;
+        margin-left: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .role-badge.medico {
+        background-color: var(--cor-primaria);
+        color: white;
+    }
+
+    .role-badge.paciente {
+        background-color: var(--cor-sucesso);
+        color: white;
     }
 
     .perfil-email {
@@ -127,10 +152,15 @@
         cursor: pointer;
         font-size: 0.95em;
         transition: all 0.3s ease;
+        line-height: 1; /* Adicionado para normalizar a altura da linha */
     }
     
     .button .btn-icon {
         transition: transform 0.3s ease;
+    }
+    
+    .button .btn-icon svg {
+        display: block; /* Remove espaço vertical extra que os SVGs podem ter */
     }
 
     .button:hover {
@@ -191,7 +221,15 @@
     @endif
 
     @auth
-        <div class="perfil-nome">{{ Auth::user()->name }}</div>
+        <div class="perfil-nome">
+            {{ Auth::user()->name }}
+            {{-- Mostra o crachá correspondente ao papel do usuário --}}
+            @if(Auth::user()->role === 'medico')
+                <span class="role-badge medico">Médico</span>
+            @else
+                <span class="role-badge paciente">Paciente</span>
+            @endif
+        </div>
         <div class="perfil-email">{{ Auth::user()->email }}</div>
 
         <div class="perfil-info">
@@ -219,24 +257,46 @@
         </div>
 
         <div class="botoes-container">
+            {{-- Botão de Editar Perfil (Comum a todos) --}}
             <a class="button button-primary" href="{{ route('perfil.edit') }}">
                 <span class="btn-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                 </span>
                 Editar Perfil
             </a>
-            <a class="button button-secondary" href="{{ route('cadastrolaudo') }}">
-                 <span class="btn-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                </span>
-                Cadastrar Laudo
-            </a>
-            <a class="button button-secondary" href="{{ route('home') }}">
-                 <span class="btn-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                </span>
-                Ver Laudos
-            </a>
+
+            {{-- Botões que mudam de acordo com o papel do usuário --}}
+            @if(Auth::user()->role === 'medico')
+                {{-- Botões para Médicos --}}
+                <a class="button button-secondary" href="#"> {{-- Substituir '#' pela rota do painel do médico --}}
+                     <span class="btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    </span>
+                    Painel do Médico
+                </a>
+                <a class="button button-secondary" href="#"> {{-- Substituir '#' pela rota da agenda do médico --}}
+                     <span class="btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </span>
+                    Minha Agenda
+                </a>
+            @else
+                {{-- Botões para Pacientes (user padrão) --}}
+                <a class="button button-secondary" href="{{ route('cadastrolaudo') }}">
+                     <span class="btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </span>
+                    Cadastrar Laudo
+                </a>
+                <a class="button button-secondary" href="{{ route('home') }}">
+                     <span class="btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </span>
+                    Meus Laudos
+                </a>
+            @endif
+
+            {{-- Botão de Logout (Comum a todos) --}}
             <form method="POST" action="{{ route('logout') }}" style="grid-column: 1 / -1;">
                 @csrf
                 <button type="submit" class="button button-danger" style="width:100%;">

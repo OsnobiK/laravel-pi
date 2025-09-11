@@ -6,17 +6,40 @@ use App\Http\Controllers\Traits\CreatesNewUsers; // Importa o Trait
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class CadastroController extends Controller
 {
-    use CreatesNewUsers; // "Usa" o Trait dentro da classe
+    use CreatesNewUsers;
+    protected function validator(array $data)
+{
+    return Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios'], // ou 'unique:users'
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+        'role' => ['required', 'string', Rule::in(['user', 'medico'])], // <-- ADICIONE ESTA LINHA
+    ]);
+} // "Usa" o Trait dentro da classe
 
     public function create()
+    
     {
         return view('cadastro');
     }
 
+    protected function create(array $data)
+{
+    return User::create([ // ou return Usuario::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => Hash::make($data['password']),
+        'role' => $data['role'], // <-- ADICIONE ESTA LINHA
+    ]);
+}
+
    // Em app/Http/Controllers/CadastroController.php
+
 
 public function store(Request $request)
 {

@@ -28,6 +28,7 @@
             <h2>Crie sua conta</h2>
             <p>Junte-se à nossa comunidade para cuidar da saúde mental!</p>
             <form action="{{ route('cadastromedico.store') }}" method="POST">
+                <input type="hidden" name="role" value="medico">
                 @csrf
 
                 @if ($errors->any())
